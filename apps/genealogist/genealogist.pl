@@ -20,8 +20,14 @@ parent_child(X, Y) :- mother_child(X, Y).
 parent_child(X, Y) :- father_child(X, Y).
 
 
-
 :- dynamic mother_child/2, father_child/2.
+
+mother_child(trude, sally).
+
+father_child(tom, sally).
+father_child(tom, erica).
+father_child(mike, tom).
+
 
 assert_mother_child(Mother, Child) :-
 	assert(mother_child(Mother, Child)).
