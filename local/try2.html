@@ -1,0 +1,54 @@
+<!--
+    Call through its URL: http://localhost:3030/try2.html
+-->
+<!--
+    If called through a file, like /home/calang/proyects/calang/pengines/local/try2.html,
+    we get this error:
+    Access to XMLHttpRequest at 'http://localhost:3030/pengine/create' from origin 'null' has been blocked by CORS policy
+    (Reason: CORS request did not succeed).
+-->
+
+
+<html lang="en">
+    <head>
+        <title>Pengine Example</title>
+    </head>
+    <body>
+        <h1>Pengine try2 Example</h1>
+
+        <div id="out"></div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+        <script src="https://pengines.swi-prolog.org/pengine/pengines.js"></script>
+
+        <script type="text/x-prolog">
+
+            main :-
+                repeat,
+                pengine_input('Give me an X', X),
+                pengine_output(X),
+                X == stop.
+
+        </script>
+        <script>
+            var pengine = new Pengine({
+                server: "http://localhost:3030/pengine",
+                oncreate: handleCreate,
+                onprompt: handlePrompt,
+                onoutput: handleOutput
+            });
+            function handleCreate() {
+                // console.log("handleCreate");
+                pengine.ask('main');
+            }
+            function handlePrompt() {
+                // console.log("handlePrompt: ", this.data);
+                pengine.respond(prompt(this.data));
+            }
+            function handleOutput() {
+                // console.log("handleOutput: ", this.data);
+                $('#out').html(this.data);
+            }
+        </script>
+    </body>
+</html>

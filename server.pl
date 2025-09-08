@@ -42,6 +42,16 @@ http:location(apps, root(apps), []).
 :- http_handler(root(admin/'account.html'),
 		http_reply_file('www/admin/account.html', []),
 		[authentication(basic(passwd, admin))]).
+:- http_handler(
+	root('try1.html'),
+	http_reply_file('local/try1.html', []),
+	[]
+).
+:- http_handler(
+	root('try2.html'),
+	http_reply_file('local/try2.html', []),
+	[]
+).
 
 
 :- http_handler(root(admin),
