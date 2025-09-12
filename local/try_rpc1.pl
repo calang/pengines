@@ -1,3 +1,6 @@
+% first example
+% from https://www.swi-prolog.org/pldoc/doc_for?object=section(%27packages/pengines.html%27)
+
 :- use_module(library(pengines)).
 
 run(X, Y) :-
@@ -7,6 +10,6 @@ run(X, Y) :-
         %     current_pengine_application(X),
         %     X = Y
         % ),
-        ancestor_decendant(X, Y),
+        ancestor_descendant(X, Y),
         [application(genealogist)]
     ).

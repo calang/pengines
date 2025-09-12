@@ -1,3 +1,6 @@
+% second example
+% from https://www.swi-prolog.org/pldoc/doc_for?object=section(%27packages/pengines.html%27)
+
 :- use_module(library(pengines)).
 
 assert_mother_child(Mother, Child) :-
