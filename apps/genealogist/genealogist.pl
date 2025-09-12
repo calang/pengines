@@ -1,5 +1,5 @@
 :- module(genealogist, 
-	[  ancestor_decendant/2,
+	[  ancestor_descendant/2,
 	   siblings/2,
 	   parent_child/2,
 	   father_child/2,
@@ -11,8 +11,8 @@
 	]).
 
 
-ancestor_decendant(X, Y) :- parent_child(X, Y).
-ancestor_decendant(X, Z) :- parent_child(X, Y), ancestor_decendant(Y, Z).
+ancestor_descendant(X, Y) :- parent_child(X, Y).
+ancestor_descendant(X, Z) :- parent_child(X, Y), ancestor_descendant(Y, Z).
 
 siblings(X, Y) :- parent_child(Z, X), parent_child(Z, Y), X @< Y.
 

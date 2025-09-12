@@ -16,8 +16,8 @@
 A <i>genealogist</i> is a person who traces or studies the descent of persons or families. Since a logic program capable of reasoning about family relations happens to be the "Hello World" of Prolog, we thought it would be appropriate to stick to this domain when building our first Pengines application. A typical example of such a program would be a file with the following content:</p>
 
 <pre  class="prettyprint lang-erlang linenums" ext="">
-ancestor_decendant(X, Y) :- parent_child(X, Y).
-ancestor_decendant(X, Z) :- parent_child(X, Y), ancestor_decendant(Y, Z).
+ancestor_descendant(X, Y) :- parent_child(X, Y).
+ancestor_descendant(X, Z) :- parent_child(X, Y), ancestor_descendant(Y, Z).
 
 siblings(X, Y) :- parent_child(Z, X), parent_child(Z, Y), X @&lt; Y.
 
@@ -36,15 +36,15 @@ The first thing we need to do is to make this into an SWI-Prolog <i>module</i>. 
 
 <pre  class="prettyprint lang-erlang linenums" ext="">
 :- module(genealogist,
-      [  ancestor_decendant/2,
+      [  ancestor_descendant/2,
          siblings/2,
          parent_child/2,
          father_child/2,
          mother_child/2
       ]).
 
-ancestor_decendant(X, Y) :- parent_child(X, Y).
-ancestor_decendant(X, Z) :- parent_child(X, Y), ancestor_decendant(Y, Z).
+ancestor_descendant(X, Y) :- parent_child(X, Y).
+ancestor_descendant(X, Z) :- parent_child(X, Y), ancestor_descendant(Y, Z).
 
 siblings(X, Y) :- parent_child(Z, X), parent_child(Z, Y), X @&lt; Y.
 
@@ -93,7 +93,7 @@ At last, we may (re)start our Pengines server and test our application. We can f
 ?- use_module(library(pengines)).
 true.
 
-?- pengine_rpc('http://localhost:3030', ancestor_decendant(X, Y), [
+?- pengine_rpc('http://localhost:3030', ancestor_descendant(X, Y), [
        application(genealogist)
    ]).
 X = trude,
@@ -171,7 +171,7 @@ Here is the HTML we shall work with:</p>
   &lt;body&gt;
       &lt;h1&gt;The Genealogist&lt;/h1&gt;
       &lt;h3&gt;Query&lt;/h3&gt;
-      &lt;input type="text" id="query" value="ancestor_decendant(X,Y)"&gt;
+      &lt;input type="text" id="query" value="ancestor_descendant(X,Y)"&gt;
       &lt;button onclick="query()"&gt;Ask&lt;/button&gt;
       &lt;button onclick="pengine.next()"&gt;Next&lt;/button&gt;
       &lt;button onclick="pengine.stop()"&gt;Stop&lt;/button&gt;
@@ -209,7 +209,7 @@ In this part of our tutorial we are going to add update capabilities to our appl
 
 <pre class="prettyprint linenums lang-erlang" ext="">
 :- module(genealogist,
-      [  ancestor_decendant/2,
+      [  ancestor_descendant/2,
          siblings/2,
          parent_child/2,
          father_child/2,
@@ -221,8 +221,8 @@ In this part of our tutorial we are going to add update capabilities to our appl
       ]).
 
 
-ancestor_decendant(X, Y) :- parent_child(X, Y).
-ancestor_decendant(X, Z) :- parent_child(X, Y), ancestor_decendant(Y, Z).
+ancestor_descendant(X, Y) :- parent_child(X, Y).
+ancestor_descendant(X, Z) :- parent_child(X, Y), ancestor_descendant(Y, Z).
 
 siblings(X, Y) :- parent_child(Z, X), parent_child(Z, Y), X @&lt; Y.
 
@@ -258,7 +258,7 @@ true.
  ]).
 true.
 
-?- pengine_rpc('http://localhost:3030', ancestor_decendant(X, Y), [
+?- pengine_rpc('http://localhost:3030', ancestor_descendant(X, Y), [
      application(genealogist)
  ]).
 X = trude,
@@ -306,7 +306,7 @@ The file <code>genealogist.pl</code> has not changed since part 3, so we will no
       &lt;div&gt;
           &lt;select id="sample-queries"&gt;
               &lt;option selected disabled&gt;Sample queries&lt;/option&gt;
-              &lt;option&gt;ancestor_decendant(X, Y)&lt;/option&gt;
+              &lt;option&gt;ancestor_descendant(X, Y)&lt;/option&gt;
               &lt;option&gt;siblings(X, Y)&lt;/option&gt;
               &lt;option&gt;parent_child(X, Y)&lt;/option&gt;
               &lt;option&gt;father_child(X, Y)&lt;/option&gt;
